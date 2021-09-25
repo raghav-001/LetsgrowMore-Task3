@@ -1,0 +1,22 @@
+<?php 
+session_start();
+$db = mysqli_connect('localhost','root','','selab') or die("Could not connect to tables");
+$userid=$_SESSION['id'];
+$classes="select * from teacherclasss where teacherid='$userid'";
+$classq=mysqli_query($db,$classes);
+$i=0;
+while($classrow=mysqli_fetch_array($classq))
+{
+	$classinfo[$i]['coursecode']=$classrow['coursecode'];
+	$classinfo[$i]['coursename']=$classrow['coursename'];
+	$classinfo[$i]['courseclassnumber']=$classrow['classnumber'];
+	$i++;
+}
+
+if(isset($_POST['clsnum']))
+{
+	$_SESSION['clsnum']=$_POST['clsnum'];
+	echo "<script>window.open('students.php','_self')</script>";
+}
+
+?>
